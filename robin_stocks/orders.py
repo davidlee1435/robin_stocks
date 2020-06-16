@@ -9,9 +9,10 @@ import robin_stocks.urls as urls
 
 
 @helper.login_required
-def get_all_stock_orders(info=None):
+def get_all_stock_orders(session, info=None):
     """Returns a list of all the orders that have been processed for the account.
 
+    :param session: The user's session
     :param info: Will filter the results to get a specific value.
     :type info: Optional[str]
     :returns: Returns a list of dictionaries of key/value pairs for each order. If info parameter is provided, \
@@ -19,7 +20,7 @@ def get_all_stock_orders(info=None):
 
     """
     url = urls.orders()
-    data = helper.request_get(url, 'pagination')
+    data = helper.request_get(url, session, 'pagination')
     return(helper.filter(data, info))
 
 
